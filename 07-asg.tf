@@ -1,28 +1,28 @@
-resource "aws_autoscaling_group" "epsilon-asg" {
-  # availability_zones        = ["us-east-1a"]
-  name                      = "epsilon-asg"
+resource "aws_autoscaling_group" "lambda-asg" {
+  # availability_zones        = ["ap-southeast-2a"]
+  name                      = "lambda-asg"
   desired_capacity          = 1
   max_size                  = 3
   min_size                  = 1
   termination_policies      = ["OldestInstance"]
-  vpc_zone_identifier  = ["${aws_subnet.epsilon-vpc-pvt-1a.id}", "${aws_subnet.epsilon-vpc-pvt-1b.id}" ]
+  vpc_zone_identifier  = ["${aws_subnet.lambda-vpc-pvt-1a.id}", "${aws_subnet.lambda-vpc-pvt-1b.id}" ]
   launch_template {
-    id      = aws_launch_template.epsilon-lt.id
+    id      = aws_launch_template.lambda-lt.id
     version = "$Latest"
   }
-  target_group_arns = [ aws_lb_target_group.epsilon-tg.arn ]
+  target_group_arns = [ aws_lb_target_group.lambda-tg.arn ]
   
 }
-resource "aws_autoscaling_policy" "epsilon-asg" {
-  name                   = "epsilon-asg"
-  autoscaling_group_name = aws_autoscaling_group.epsilon-asg.name
+resource "aws_autoscaling_policy" "lambda-asg" {
+  name                   = "lambda-asg"
+  autoscaling_group_name = aws_autoscaling_group.lambda-asg.name
   policy_type            = "PredictiveScaling"
   predictive_scaling_configuration {
     metric_specification {
       target_value = 10
       predefined_load_metric_specification {
         predefined_metric_type = "ASGTotalCPUUtilization"
-        resource_label         = "epsilon-asg"
+        resource_label         = "lambda-asg"
       }
       customized_scaling_metric_specification {
         metric_data_queries {
@@ -33,7 +33,7 @@ resource "aws_autoscaling_policy" "epsilon-asg" {
               namespace   = "AWS/EC2"
               dimensions {
                 name  = "AutoScalingGroupName"
-                value = "epsilon-asg"
+                value = "lambda-asg"
               }
             }
             stat = "Average"
@@ -44,31 +44,31 @@ resource "aws_autoscaling_policy" "epsilon-asg" {
   }
 }
 
-resource "aws_autoscaling_group" "epsilon-asg-apiserver" {
-  # availability_zones        = ["us-east-1a"]
-  name                      = "epsilon-asg-apiserver"
+resource "aws_autoscaling_group" "lambda-asg-apiserver" {
+  # availability_zones        = ["ap-southeast-2a"]
+  name                      = "lambda-asg-apiserver"
   desired_capacity          = 1
   max_size                  = 3
   min_size                  = 1
   termination_policies      = ["OldestInstance"]
-  vpc_zone_identifier  = ["${aws_subnet.epsilon-vpc-pvt-1a.id}", "${aws_subnet.epsilon-vpc-pvt-1b.id}" ]
+  vpc_zone_identifier  = ["${aws_subnet.lambda-vpc-pvt-1a.id}", "${aws_subnet.lambda-vpc-pvt-1b.id}" ]
   launch_template {
-    id      = aws_launch_template.epsilon-lt-apiserver.id
+    id      = aws_launch_template.lambda-lt-apiserver.id
     version = "$Latest"
   }
-  target_group_arns = [ aws_lb_target_group.epsilon-tg-api.arn ]
+  target_group_arns = [ aws_lb_target_group.lambda-tg-api.arn ]
   
 }
-resource "aws_autoscaling_policy" "epsilon-asg-apiserver" {
-  name                   = "epsilon-asg-apiserver"
-  autoscaling_group_name = aws_autoscaling_group.epsilon-asg-apiserver.name
+resource "aws_autoscaling_policy" "lambda-asg-apiserver" {
+  name                   = "lambda-asg-apiserver"
+  autoscaling_group_name = aws_autoscaling_group.lambda-asg-apiserver.name
   policy_type            = "PredictiveScaling"
   predictive_scaling_configuration {
     metric_specification {
       target_value = 10
       predefined_load_metric_specification {
         predefined_metric_type = "ASGTotalCPUUtilization"
-        resource_label         = "epsilon-asg-apiserver"
+        resource_label         = "lambda-asg-apiserver"
       }
       customized_scaling_metric_specification {
         metric_data_queries {
@@ -79,7 +79,7 @@ resource "aws_autoscaling_policy" "epsilon-asg-apiserver" {
               namespace   = "AWS/EC2"
               dimensions {
                 name  = "AutoScalingGroupName"
-                value = "epsilon-asg"
+                value = "lambda-asg"
               }
             }
             stat = "Average"
@@ -92,7 +92,7 @@ resource "aws_autoscaling_policy" "epsilon-asg-apiserver" {
 
 
 resource "aws_acm_certificate" "sba_api_cert" {
-  domain_name       = "epsilon-smartbankapi.cloudtech-training.com"
+  domain_name       = "lambda-smartbankapi.cloudtech-training.com"
   validation_method = "DNS"
 }
 

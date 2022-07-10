@@ -1,7 +1,7 @@
 resource "aws_security_group" "vpc-sg-db" {
-  name        = "epsilon-vpc-sg-db"
+  name        = "lambda-vpc-sg-db"
   description = "security group DB"
-  vpc_id      = aws_vpc.epsilon-vpc.id
+  vpc_id      = aws_vpc.lambda-vpc.id
   ingress {
     from_port   = 5432
     to_port     = 5432
@@ -16,15 +16,15 @@ resource "aws_security_group" "vpc-sg-db" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "epsilon-vpc-sg-db"
+    Name = "lambda-vpc-sg-db"
   }
 }
 
 resource "aws_db_subnet_group" "db-subnet-grp" {
-  name       = "epsilon-db-subnets"
-  subnet_ids = ["${aws_subnet.epsilon-vpc-pvt-1a.id}", "${aws_subnet.epsilon-vpc-pvt-1b.id}" ]
+  name       = "lambda-db-subnets"
+  subnet_ids = ["${aws_subnet.lambda-vpc-pvt-1a.id}", "${aws_subnet.lambda-vpc-pvt-1b.id}" ]
   tags = {
-    Name = "epsilon-db-subnets"
+    Name = "lambda-db-subnets"
   }
 }
 
@@ -33,7 +33,7 @@ resource "aws_db_instance" "postgres" {
   storage_type           = "gp2"
   engine                 = "postgres"
   instance_class         = "db.t3.micro"
-  identifier             = "epsilon-sba"
+  identifier             = "lambda-sba"
   db_name                = "smartbankapp"
   username               = "postgres"
   password               = "postgres"
