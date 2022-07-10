@@ -1,45 +1,40 @@
-resource "aws_security_group" "lambda-vpc-sg" {
-    vpc_id = aws_vpc.lambda-vpc.id
-
-locals {
-  ingress_rules = [{
-    port = 443
-    description = "HTTPS"
-  },
-  {
-    port = 22
-    description = "SSH"
-  },
-  {
-    port = 80
-    description = "frontend"
-  },
-  {
-    port = 8080
-    description = "apiserver"
-  }]
-}
-
-dynamic "ingress" {
-  for_each = local.ingress_rules
-
-  content {
-    description = ingress.value.description
-    from_port = ingress.value.port
-    to_port = ingress.value.port
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
+resource "aws_security_group" "lamda-vpc-sg" {
+    vpc_id = aws_vpc.lamda-vpc.id
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+  ingress {
+    description = "HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "HTTP-Alt"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    description = "HTTPS"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   tags={
-    Name = "lambda-vpc-sg-main"
+    Name = "lamda-vpc-sg-main"
   }
 }
