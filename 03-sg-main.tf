@@ -1,5 +1,5 @@
-resource "aws_security_group" "lamda-vpc-sg" {
-    vpc_id = aws_vpc.lamda-vpc.id
+resource "aws_security_group" "lambda-vpc-sg" {
+    vpc_id = aws_vpc.lambda-vpc.id
   egress {
     from_port   = 0
     to_port     = 0
@@ -35,6 +35,6 @@ resource "aws_security_group" "lamda-vpc-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags={
-    Name = "lamda-vpc-sg-main"
+    Name = "lambda-vpc-sg"
   }
 }
