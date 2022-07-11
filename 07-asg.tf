@@ -91,10 +91,10 @@ resource "aws_autoscaling_policy" "lambda-asg-apiserver" {
 }
 
 
-resource "aws_acm_certificate" "sba_api_cert" {
-  domain_name       = "lambda-smartbankapi.cloudtech-training.com"
-  validation_method = "DNS"
-}
+# resource "aws_acm_certificate" "sba_api_cert" {
+#   domain_name       = "lambda-smartbankapi.cloudtech-training.com"
+#   validation_method = "DNS"
+# }
 
 # data "aws_route53_zone" "sba_zone" {
 #   name         = "cloudtech-training.com"
