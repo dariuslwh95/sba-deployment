@@ -1,6 +1,6 @@
 variable "region" {
   description = "AWS Deployment region.."
-  default = "ap-southeast-2"
+  default = "us-east-2"
 }
 # Defining CIDR Block for VPC
 variable "vpc_cidr" {
