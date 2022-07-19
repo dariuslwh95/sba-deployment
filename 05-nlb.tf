@@ -2,7 +2,7 @@ resource "aws_lb" "lambda-lb" {
   name               = "lambda-lb"
   internal           = false
   load_balancer_type = "network"
-  # availability_zone = ["us-east-2a"]
+  # availability_zone = ["ap-south-1a"]
   # subnets = [aws_subnet.lambda-vpc-pb-1a.aws_subnet.lambda-vpc-pb-1a.id]
   subnets            = ["${aws_subnet.lambda-vpc-pb-1a.id}", "${aws_subnet.lambda-vpc-pb-1b.id}" ]
 
@@ -27,7 +27,7 @@ resource "aws_lb" "lambda-lb-api" {
   name               = "lambda-lb-api"
   internal           = false
   load_balancer_type = "network"
-  # availability_zone = ["us-east-2a"]
+  # availability_zone = ["ap-south-1a"]
   # subnets = [aws_subnet.lambda-vpc-pb-1a.aws_subnet.lambda-vpc-pb-1a.id]
   subnets            = ["${aws_subnet.lambda-vpc-pb-1a.id}", "${aws_subnet.lambda-vpc-pb-1b.id}" ]
 

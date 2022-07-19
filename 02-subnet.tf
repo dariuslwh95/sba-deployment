@@ -4,7 +4,7 @@
 resource "aws_subnet" "lambda-vpc-pb-1a" {
   vpc_id = aws_vpc.lambda-vpc.id
   cidr_block = "10.0.1.0/24"
-  availability_zone = "us-east-2a"
+  availability_zone = "ap-south-1a"
     map_public_ip_on_launch = true
 
     tags ={
@@ -19,7 +19,7 @@ resource "aws_route_table_association" "pb-1a" {
 resource "aws_subnet" "lambda-vpc-pb-1b" {
     vpc_id = aws_vpc.lambda-vpc.id
   cidr_block = "10.0.3.0/24"
-  availability_zone = "us-east-2b"
+  availability_zone = "ap-south-1b"
     map_public_ip_on_launch = true
 
     tags ={
@@ -55,7 +55,7 @@ resource "aws_route_table" "lambda-vpc-rt-pvt" {
 resource "aws_subnet" "lambda-vpc-pvt-1a" {
     vpc_id = aws_vpc.lambda-vpc.id
   cidr_block = "10.0.2.0/24"
-  availability_zone = "us-east-2a"
+  availability_zone = "ap-south-1a"
     tags ={
         Name = "lambda-vpc-pvt-1a"
     }
@@ -67,7 +67,7 @@ resource "aws_route_table_association" "pvt-1a" {
 resource "aws_subnet" "lambda-vpc-pvt-1b" {
     vpc_id = aws_vpc.lambda-vpc.id
   cidr_block = "10.0.4.0/24"
-  availability_zone = "us-east-2b"
+  availability_zone = "ap-south-1b"
     tags ={
         Name = "lambda-vpc-pvt-1b"
     }

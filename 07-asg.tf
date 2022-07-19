@@ -1,5 +1,5 @@
 resource "aws_autoscaling_group" "lambda-asg" {
-  # availability_zones        = ["us-east-2a"]
+  # availability_zones        = ["ap-south-1a"]
   name                      = "lambda-asg"
   desired_capacity          = 1
   max_size                  = 3
@@ -45,7 +45,7 @@ resource "aws_autoscaling_policy" "lambda-asg" {
 }
 
 resource "aws_autoscaling_group" "lambda-asg-apiserver" {
-  # availability_zones        = ["us-east-2a"]
+  # availability_zones        = ["ap-south-1a"]
   name                      = "lambda-asg-apiserver"
   desired_capacity          = 1
   max_size                  = 3
