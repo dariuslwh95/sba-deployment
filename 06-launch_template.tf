@@ -11,7 +11,7 @@ resource "aws_launch_template" "lambda-lt" {
 }
 
 resource "aws_launch_template" "lambda-lt-apiserver" {
-  name_prefix   = "lambda-lt"
+  name_prefix   = "lambda-lt-api"
   image_id      = "ami-0dc633995664f082b"
   instance_type = "t3a.small"
   
